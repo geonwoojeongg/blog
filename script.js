@@ -1,30 +1,26 @@
-// Mobile Hamburger Menu Toggle
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-const navItems = document.querySelectorAll('.nav-links li a');
+// Fade-in scroll animation (Squarespace style)
+document.addEventListener("DOMContentLoaded", function() {
+    const fadeElements = document.querySelectorAll('.fade-in');
 
-// Toggle menu on click
-hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-});
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
 
-// Close menu when a link is clicked (useful for single-page scrolling)
-navItems.forEach(item => {
-    item.addEventListener('click', () => {
-        navLinks.classList.remove('active');
+    fadeElements.forEach(element => {
+        observer.observe(element);
     });
 });
 
-// Contact Form Submission Handler
+// Contact Form Handler
 const contactForm = document.getElementById('contact-form');
-
-contactForm.addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent page reload
-    
-    // In a real backend, you'd send the data here.
-    // For this static site, we provide visual feedback:
-    alert('Message sent! Thanks for reaching out. I will get back to you shortly.');
-    
-    // Clear the form fields
-    contactForm.reset();
-});
+if(contactForm) {
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        alert('Message sent! I will get back to you shortly.');
+        contactForm.reset();
+    });
+}
